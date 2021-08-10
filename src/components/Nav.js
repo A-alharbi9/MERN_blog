@@ -6,7 +6,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
   const toggleIt = document.querySelector(".navbar-toggler");
   // const collapseIt = document.querySelector(".navbar-collapse");
 
-  console.log(toggleIt);
+  // console.log(toggleIt);
 
   // toggleIt.addEventListener("click", () => {
   //   console.log("clicked");
