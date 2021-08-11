@@ -8,6 +8,15 @@ const getPosts = async (req, res) => {
     res.status(404).send("Not Found");
   }
 };
+const getPost = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const postFetch = await Blog.findById(id);
+    res.status(200).json(postFetch);
+  } catch (error) {
+    res.status(404).send("Not Found");
+  }
+};
 const createPost = async (req, res) => {
   const post = req.body;
   const { title, snippet, body } = post;
@@ -18,4 +27,4 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { getPosts, createPost };
+module.exports = { getPosts, getPost, createPost };

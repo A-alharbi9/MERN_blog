@@ -16,6 +16,7 @@ function App() {
         />
         <Switch>
           <Route path="/" exact component={Main} />
+          <Route path={`/posts/+${9}`} exact component={Main} />
           <Route path="/create" component={Create} />
         </Switch>
       </div>
