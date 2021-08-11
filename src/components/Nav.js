@@ -2,8 +2,7 @@ import React from "react";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
-  // const allNav = document.querySelectorAll(".nav-link");
-  const toggleIt = document.querySelector(".navbar-toggler");
+  // const toggleIt = document.querySelector(".navbar-toggler");
   // const collapseIt = document.querySelector(".navbar-collapse");
 
   // console.log(toggleIt);

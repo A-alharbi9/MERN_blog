@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 const axios = require("axios");
-const createPosts = require("../api/index");
 
 function Create() {
   const [posts, setPosts] = useState({ title: "", snippet: "", body: "" });
@@ -27,20 +26,19 @@ function Create() {
   // }, []);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+
     const newPost = {
       title: posts.title,
       snippet: posts.snippet,
       body: posts.body,
     };
 
-    e.preventDefault();
     axios
       .post("http://localhost:5000/posts", newPost)
       .then(() => console.log("Success"))
       .catch((err) => console.log("Error: ", err.message));
 
-    // createPosts.createPost(posts);
-    // // console.log(createPosts.createPost);
     console.log("Form");
   };
 

@@ -1,4 +1,3 @@
-import e from "express";
 import React, { useEffect, useState } from "react";
 const axios = require("axios");
 
@@ -33,7 +32,6 @@ function Main() {
 
   return (
     <div className="container">
-      {/* <h1>Main</h1> */}
       {data.length > 0
         ? data.map((post) => {
             return (
