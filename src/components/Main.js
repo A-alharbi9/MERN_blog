@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const axios = require("axios");
 
 function Main() {
@@ -29,7 +30,9 @@ function Main() {
     data.slice(0, visible);
   };
 
-  const handleReadMore = () => {};
+  const handleReadMore = (id) => {
+    console.log(id);
+  };
 
   return (
     <div className="container">
@@ -41,10 +44,14 @@ function Main() {
                   <h3 className="card-title">{post.title}</h3>
                   <h6 className="card-subtitle text-muted">{post.snippet}</h6>
                 </div>
-                <button className="btn btn-primary" onClick={handleReadMore()}>
-                  <a className="btn btn-primary" href="/posts" target="_blank">
+                <button className="btn btn-primary" onClick={handleReadMore}>
+                  <Link
+                    className="btn btn-primary"
+                    key={post._id}
+                    to={`/posts/${post._id}`}
+                  >
                     Read more
-                  </a>
+                  </Link>
                 </button>
               </div>
             );
