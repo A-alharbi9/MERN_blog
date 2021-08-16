@@ -14,7 +14,7 @@ function Main() {
     return () => {
       isMounted = true;
     };
-  }, [data]);
+  }, []);
 
   async function fetchData() {
     await axios
@@ -22,7 +22,7 @@ function Main() {
       .then((res) => setData(res.data))
       .catch((err) => console.log("Error: ", err.message));
   }
-  console.log(data);
+  // console.log(data);
 
   const showMoreBtn = (e) => {
     e.preventDefault();
@@ -30,9 +30,7 @@ function Main() {
     data.slice(0, visible);
   };
 
-  const handleReadMore = (id) => {
-    console.log(id);
-  };
+  const handleReadMore = (id) => {};
 
   return (
     <div className="container">
