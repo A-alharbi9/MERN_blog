@@ -27,7 +27,7 @@ function Post(props) {
   // console.log(props);
 
   return (
-    <div className="container-fluid ">
+    <div className="container-fluid" id="postContainer">
       {post ? (
         <div
           className="card d-flex flex-row justify-content-center  align-content-center my-3"
@@ -36,7 +36,7 @@ function Post(props) {
         >
           <div className="card-body body">
             <h1 className="card-title title">{post.title}</h1>
-            <h4 className="card-text text">{post.body}</h4>
+            <h4 className="card-text ">{post.body}</h4>
           </div>
         </div>
       ) : (

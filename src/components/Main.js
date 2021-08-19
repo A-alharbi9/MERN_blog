@@ -37,10 +37,10 @@ function Main() {
       {data.length > 0
         ? data.map((post) => {
             return (
-              <div className="card my-3" key={post._id}>
+              <div className="card my-3 text-center" key={post._id}>
                 <div className="card-body">
-                  <h3 className="card-title">{post.title}</h3>
-                  <h6 className="card-subtitle text-muted">{post.snippet}</h6>
+                  <h4 className="card-title">{post.title}</h4>
+                  <p className="card-subtitle text-muted">{post.snippet}</p>
                 </div>
                 <button className="btn btn-primary" onClick={handleReadMore}>
                   <Link
