@@ -9,20 +9,20 @@ function Post(props) {
 
   useEffect(() => {
     let isLoaded = false;
+
     const getData = () => {
       return axios
         .get(`/posts/${props.match.params.id}`)
         .then((res) => setPost(res.data))
         .catch((err) => console.log("Error: ", err.message));
     };
-
     // fetchPostData();
     getData();
-    console.log(post);
+    // console.log(post);
     // return () => {
     //   isLoaded = true;
     // };
-  }, [post._id]);
+  }, []);
 
   // console.log(props);
 
@@ -35,8 +35,12 @@ function Post(props) {
           key={post._id}
         >
           <div className="card-body body">
-            <h1 className="card-title title">{post.title}</h1>
-            <h4 className="card-text ">{post.body}</h4>
+            <h1 className="card-title title" id="post postTitle">
+              {post.title}
+            </h1>
+            <h4 className="card-text " id="post postBody">
+              {post.body}
+            </h4>
           </div>
         </div>
       ) : (

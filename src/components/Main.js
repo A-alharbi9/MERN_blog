@@ -9,6 +9,12 @@ function Main() {
   useEffect(() => {
     let isMounted = false;
 
+    async function fetchData() {
+      await axios
+        .get("/posts")
+        .then((res) => setData(res.data))
+        .catch((err) => console.log("Error: ", err.message));
+    }
     fetchData();
 
     return () => {
@@ -16,12 +22,6 @@ function Main() {
     };
   }, []);
 
-  async function fetchData() {
-    await axios
-      .get("/posts")
-      .then((res) => setData(res.data))
-      .catch((err) => console.log("Error: ", err.message));
-  }
   // console.log(data);
 
   const showMoreBtn = (e) => {
