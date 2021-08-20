@@ -2,7 +2,7 @@ const Blog = require("../models/blogModel");
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await Blog.find({});
+    const posts = await Blog.find().sort({ _id: -1 });
     res.status(200).json(posts);
   } catch (error) {
     res.status(404).send("Not Found");
