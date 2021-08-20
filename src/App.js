@@ -4,6 +4,7 @@ import Main from "../src/components/Main";
 import Create from "../src/components/Create";
 import Nav from "../src/components/Nav";
 import Post from "./components/Post";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/posts/:id" exact component={Post} />
           <Route path="/create" component={Create} />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );

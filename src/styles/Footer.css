@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;600&display=swap");
+footer {
+  background-color: black;
+  color: #fff;
+}
+svg {
+  cursor: pointer;
+  transform: scaleY(1);
+  transition: 0.5s;
+}
+svg:hover {
+  color: aqua;
+  transform: scaleY(1.1);
+}
+#postTitle {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+}
+#postBody {
+  font-family: "Raleway", sans-serif;
+  font-weight: thin;
+}
