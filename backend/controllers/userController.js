@@ -1,6 +1,8 @@
 const User = require("../models/UserModel");
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const secret = process.env.JWT_SECRET;
 
 const SignIn = async (req, res) => {
   const user = req.body;

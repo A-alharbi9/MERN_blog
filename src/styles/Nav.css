@@ -15,10 +15,10 @@
 .navbar-brand {
   font-size: 2em;
 }
-.active {
+#active {
   color: aqua !important;
 }
-.active:hover {
+#active:hover {
   color: rgb(179, 207, 207) !important;
 }
 .navbar-dark .navbar-nav .nav-link:focus,

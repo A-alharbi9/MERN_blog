@@ -13,7 +13,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
   // });
   document.addEventListener("click", (e) => {
     if (e.target.closest(".navbar-nav")) {
-      e.target.classList.toggle(".active");
+      e.target.classList.toggle("#active");
     }
   });
 

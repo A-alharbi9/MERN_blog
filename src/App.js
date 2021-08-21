@@ -5,6 +5,7 @@ import Create from "../src/components/Create";
 import Nav from "../src/components/Nav";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
+import UserForm from "./components/UserForm";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" exact component={Main} />
           <Route path="/posts/:id" exact component={Post} />
           <Route path="/create" component={Create} />
+          <Route path="/user" component={UserForm} />
         </Switch>
         <Footer />
       </div>
