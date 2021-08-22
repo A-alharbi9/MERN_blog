@@ -1,12 +1,15 @@
 const User = require("../models/UserModel");
+const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const secret = process.env.JWT_SECRET;
 
-const SignIn = async (req, res) => {
+const signIn = async (req, res) => {
   const user = req.body;
+
   const { email, password } = user;
+
   try {
     const userExists = await User.findOne({ email });
 
@@ -24,14 +27,19 @@ const SignIn = async (req, res) => {
       }
     );
 
+    localStorage.setItem("userProfile", JSON.stringify(token));
+
     res.status(200).json({ userExists, token });
   } catch (error) {
-    res.status(500).send("Something went wrong, could not sign up user");
+    res.status(500).send("Something went wrong, could not sign in user");
   }
 };
-const SignUp = async (req, res) => {
+
+const signUp = async (req, res) => {
   const user = req.body;
+
   const { firstName, lastName, email, password } = user;
+
   try {
     const userExists = await User.findOne({ email });
 
@@ -39,20 +47,37 @@ const SignUp = async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, 12);
 
-    const newUser = await User.create({
-      name: `${firstName} ${lastName}`,
-      email,
+    const createUser = await User.create({
+      name: `${user.firstName} ${user.lastName}`,
+      email: user.email,
       password: passwordHash,
     });
 
-    const token = jwt.sign({ email: newUser.email, id: newUser._id }, secret, {
-      expiresIn: "2h",
-    });
+    const token = jwt.sign(
+      { email: createUser.email.user.email, id: createUser._id },
+      secret,
+      {
+        expiresIn: "2h",
+      }
+    );
 
-    res.status(201).json({ newUser, token });
+    localStorage.setItem("userProfile", JSON.stringify(token));
+
+    res.status(201).json({ createUser, token });
   } catch (error) {
     res.status(500).send("Something went wrong, could not sign up user");
+
+    console.log(error);
   }
 };
 
-module.exports = { SignIn, signUp };
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find().sort({ _id: -1 });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(404).send("Not Found");
+  }
+};
+
+module.exports = { signIn, signUp, getUsers };
