@@ -48,18 +48,20 @@ const signUp = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 12);
 
     const createUser = await User.create({
-      name: `${user.firstName} ${user.lastName}`,
-      email: user.email,
+      firstName,
+      lastName,
+      email,
       password: passwordHash,
     });
 
     const token = jwt.sign(
-      { email: createUser.email.user.email, id: createUser._id },
+      { email: createUser.email, id: createUser._id },
       secret,
       {
         expiresIn: "2h",
       }
     );
+    console.log(token);
 
     localStorage.setItem("userProfile", JSON.stringify(token));
 
@@ -67,7 +69,7 @@ const signUp = async (req, res) => {
   } catch (error) {
     res.status(500).send("Something went wrong, could not sign up user");
 
-    console.log(error);
+    console.log("The Error: ", error);
   }
 };
 

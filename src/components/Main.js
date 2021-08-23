@@ -4,6 +4,7 @@ const axios = require("axios");
 
 function Main() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(3);
 
   useEffect(() => {
@@ -11,10 +12,12 @@ function Main() {
 
     async function fetchData() {
       await axios
-        .get("/posts")
+        .get("http://localhost:5000/posts")
         .then((res) => setData(res.data))
+        .then(() => setLoading(false))
         .catch((err) => console.log("Error: ", err.message));
     }
+
     fetchData();
 
     return () => {
@@ -26,8 +29,13 @@ function Main() {
 
   const showMoreBtn = (e) => {
     e.preventDefault();
+    let showMoreBtn = document.querySelector("#showMoreBtn");
 
-    data.slice(0, visible);
+    if (visible > data.length) {
+      showMoreBtn.classList.add("d-none");
+    }
+
+    setVisible((prevState) => prevState + 3);
   };
 
   const handleReadMore = (id) => {};
@@ -35,7 +43,7 @@ function Main() {
   return (
     <div className="container">
       {data.length > 0 ? (
-        data.map((post) => {
+        data.slice(0, visible).map((post) => {
           return (
             <div className="card my-3 text-center" key={post._id}>
               <div className="card-body">
@@ -55,9 +63,12 @@ function Main() {
           );
         })
       ) : (
-        <div class="text-center">
+        <div
+          class="text-center d-flex flex-column justify-content-center align-items-center"
+          style={{ height: "87vh" }}
+        >
           <div
-            class="spinner-border"
+            class="spinner-border "
             style={{ width: "3rem", height: "3rem" }}
             role="status"
           >
@@ -65,12 +76,17 @@ function Main() {
           </div>
         </div>
       )}
-      <button
-        className="btn btn-primary hidden"
-        onClick={(prevState) => prevState + setVisible(3)}
-      >
-        Show more
-      </button>
+      {loading ? (
+        ""
+      ) : (
+        <button
+          className="btn btn-primary hidden"
+          id="showMoreBtn"
+          onClick={showMoreBtn}
+        >
+          Show more
+        </button>
+      )}
     </div>
   );
 }
