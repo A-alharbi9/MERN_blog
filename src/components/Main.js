@@ -64,15 +64,15 @@ function Main() {
         })
       ) : (
         <div
-          class="text-center d-flex flex-column justify-content-center align-items-center"
+          className="text-center d-flex flex-column justify-content-center align-items-center"
           style={{ height: "87vh" }}
         >
           <div
-            class="spinner-border "
+            className="spinner-border "
             style={{ width: "3rem", height: "3rem" }}
             role="status"
           >
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       )}

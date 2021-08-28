@@ -3,7 +3,7 @@ const axios = require("axios");
 const { signUpUser } = require(".././api/index");
 const { signInUser } = require(".././api/index");
 
-function UserForm() {
+function UserForm(props) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,6 +40,9 @@ function UserForm() {
     }
 
     console.log(formData);
+    console.log(props);
+
+    props.signedIn = true;
 
     // setFormData({
     //   firstName: "",
@@ -70,7 +73,7 @@ function UserForm() {
         {signUp ? (
           <>
             <div className="form-group">
-              <label for="firstNameInput">First Name:</label>
+              <label htmlFor="firstNameInput">First Name:</label>
               <input
                 type="text"
                 class="form-control text-center"
@@ -83,7 +86,7 @@ function UserForm() {
               />
             </div>
             <div className="form-group">
-              <label for="lastNameInput">Last Name:</label>
+              <label htmlFor="lastNameInput">Last Name:</label>
               <input
                 type="text"
                 class="form-control text-center"
@@ -96,7 +99,7 @@ function UserForm() {
               />
             </div>
             <div className="form-group">
-              <label for="emailInput">Email:</label>
+              <label htmlFor="emailInput">Email:</label>
               <input
                 type="email"
                 class="form-control text-center"
@@ -109,7 +112,7 @@ function UserForm() {
               />
             </div>
             <div className="form-group">
-              <label for="passwordInput">Password:</label>
+              <label htmlFor="passwordInput">Password:</label>
               <input
                 type="passwprd"
                 class="form-control text-center"
@@ -133,7 +136,7 @@ function UserForm() {
         ) : (
           <>
             <div className="form-group">
-              <label for="emailInput">Email:</label>
+              <label htmlFor="emailInput">Email:</label>
               <input
                 type="email"
                 class="form-control text-center"
@@ -146,7 +149,7 @@ function UserForm() {
               />
             </div>
             <div className="form-group">
-              <label for="passwordInput">Password:</label>
+              <label htmlFor="passwordInput">Password:</label>
               <input
                 type="passwprd"
                 class="form-control text-center"
