@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import swal from "@sweetalert/with-react";
 const axios = require("axios");
 const { signUpUser } = require(".././api/index");
 const { signInUser } = require(".././api/index");
@@ -16,45 +17,91 @@ function UserForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let newUser;
-
-    if (signUp === true) {
-      newUser = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-      };
-    }
-
-    newUser = {
+    let newSigning = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       email: formData.email,
       password: formData.password,
     };
 
     console.log(signUp);
-    console.log(signUp instanceof Boolean);
 
     {
-      signUp ? signUpUser(newUser) : signInUser(newUser);
+      signUp
+        ? signUpUser(newSigning)
+            .then((res) =>
+              localStorage.setItem(
+                "userProfile",
+                JSON.stringify(res.data.token)
+              )
+            )
+            .then(() =>
+              swal({
+                title: "Submitted Successfully",
+                text: "You can login now",
+                icon: "success",
+              })
+            )
+            .catch((err) => {
+              swal({
+                title: "An error occurred",
+                text: err.message.json,
+                icon: "error",
+              });
+              console.log("Error: ", err);
+            })
+        : signInUser(newSigning)
+            .then((res) => verifyToken(res))
+            .then(() =>
+              swal({
+                title: "Submitted Successfully",
+                icon: "success",
+              })
+            )
+            .catch((err) => {
+              swal({
+                title: "An error occurred",
+                text: err.message.json,
+                icon: "error",
+              });
+              console.log("Error: ", err);
+            });
     }
 
-    console.log(formData);
-    console.log(props);
+    // console.log(formData);
+    // console.log(props);
 
-    props.signedIn = true;
+    e.target.reset();
 
-    // setFormData({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    // });
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
   };
   const handleClick = () => {
     const formValues = document.querySelectorAll("input");
 
     formValues.values = " ";
+  };
+
+  const verifyToken = (ele) => {
+    try {
+      if (!ele.data.token) {
+        return "No Token Was Found!";
+      }
+      if (ele.data.token) {
+        localStorage.setItem("userProfile", JSON.stringify(ele.data.token));
+      }
+    } catch (error) {
+      swal({
+        title: "An error occurred",
+        text: error.message.json,
+        icon: "error",
+      });
+      console.log(error);
+    }
   };
 
   return (

@@ -13,7 +13,7 @@ const signIn = async (req, res) => {
   try {
     const userExists = await User.findOne({ email });
 
-    if (!userExists) return res.status(400).json("User Does Not Exist!");
+    if (!userExists) return res.status(400).send("User Does Not Exist!");
 
     const passwordCompare = await bcrypt.compare(password, userExists.password);
 
@@ -23,11 +23,9 @@ const signIn = async (req, res) => {
       { email: userExists.email, id: userExists._id },
       secret,
       {
-        expiresIn: "2h",
+        expiresIn: "15m",
       }
     );
-
-    localStorage.setItem("userProfile", JSON.stringify(token));
 
     res.status(200).json({ userExists, token });
   } catch (error) {
@@ -38,14 +36,21 @@ const signIn = async (req, res) => {
 const signUp = async (req, res) => {
   const user = req.body;
 
-  const { firstName, lastName, email, password } = user;
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+  const email = user.email;
+  const password = user.password;
+
+  console.log("Db:", firstName, lastName, password, email);
 
   try {
     const userExists = await User.findOne({ email });
 
     if (userExists) return res.status(400).json("User Already Exists!");
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const salt = await bcrypt.genSalt(12);
+
+    const passwordHash = await bcrypt.hash(password, salt);
 
     const createUser = await User.create({
       firstName,
@@ -58,12 +63,9 @@ const signUp = async (req, res) => {
       { email: createUser.email, id: createUser._id },
       secret,
       {
-        expiresIn: "2h",
+        expiresIn: "15m",
       }
     );
-    console.log(token);
-
-    localStorage.setItem("userProfile", JSON.stringify(token));
 
     res.status(201).json({ createUser, token });
   } catch (error) {
