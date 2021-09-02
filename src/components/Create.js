@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import swal from "@sweetalert/with-react";
 const axios = require("axios");
 
 function Create() {
@@ -7,27 +8,6 @@ function Create() {
   const [success, setSuccess] = useState(true);
 
   let history = useHistory();
-
-  // useEffect(() => {
-  //   const btn = document.querySelector("#btn");
-  //   const titleVal = document.querySelector("#title");
-  //   const snippetVal = document.querySelector("#snippet");
-  //   const bodyVal = document.querySelector("#body");
-  //   btn.addEventListener("click", () => {
-  //     axios
-  //       .post("/create", {
-  //         title: titleVal,
-  //         snippet: snippetVal,
-  //         body: bodyVal,
-  //       })
-  //       .then(() => {
-  //         console.log("Success!");
-  //       })
-  //       .catch((err) => {
-  //         console.log("Error: ", err.name);
-  //       });
-  //   });
-  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,8 +20,20 @@ function Create() {
 
     axios
       .post("/posts", newPost)
-      .then(() => console.log("Success"))
-      .catch((err) => console.log("Error: ", err.message));
+      .then(() =>
+        swal({
+          title: "Submitted Successfully",
+          icon: "success",
+        })
+      )
+      .catch((err) => {
+        swal({
+          title: "An error occurred",
+          text: err.response.data,
+          icon: "error",
+        });
+        console.log("Error: ", err.response.data);
+      });
 
     console.log(posts);
 
@@ -49,10 +41,13 @@ function Create() {
   };
 
   return (
-    <div className="container">
+    <div
+      className="container d-flex flex-column justify-content-center "
+      style={{ height: "85vh" }}
+    >
       {success ? (
         <form
-          className="d-flex flex-column"
+          className="d-flex flex-column "
           method="post"
           onSubmit={handleSubmit}
         >
@@ -75,6 +70,7 @@ function Create() {
           />
           <textarea
             id="body"
+            className="p-2 my-2"
             rows="5"
             onChange={(e) => setPosts({ ...posts, body: e.target.value })}
           ></textarea>

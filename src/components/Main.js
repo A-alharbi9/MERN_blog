@@ -5,6 +5,7 @@ const axios = require("axios");
 function Main() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showBtn, setShowBtn] = useState(false);
   const [visible, setVisible] = useState(3);
 
   useEffect(() => {
@@ -13,7 +14,13 @@ function Main() {
     async function fetchData() {
       await axios
         .get("http://localhost:5000/posts")
-        .then((res) => setData(res.data))
+        .then((res) => {
+          setData(res.data);
+          if (res.data.length > 0) {
+            setShowBtn(true);
+          }
+          console.log(res.data.length);
+        })
         .then(() => setLoading(false))
         .catch((err) => console.log("Error: ", err.message));
     }
@@ -24,8 +31,6 @@ function Main() {
       isMounted = true;
     };
   }, []);
-
-  // console.log(data);
 
   const showMoreBtn = (e) => {
     e.preventDefault();
@@ -38,10 +43,25 @@ function Main() {
     setVisible((prevState) => prevState + 3);
   };
 
-  const handleReadMore = (id) => {};
+  if (loading) {
+    return (
+      <div
+        className="text-center d-flex flex-column justify-content-center align-items-center"
+        style={{ height: "87vh" }}
+      >
+        <div
+          className="spinner-border "
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container">
+    <div className="container " style={{ minHeight: "87vh" }}>
       {data.length > 0 ? (
         data.slice(0, visible).map((post) => {
           return (
@@ -50,7 +70,7 @@ function Main() {
                 <h4 className="card-title">{post.title}</h4>
                 <p className="card-subtitle text-muted">{post.snippet}</p>
               </div>
-              <button className="btn btn-primary" onClick={handleReadMore}>
+              <button className="btn btn-primary">
                 <Link
                   className="btn btn-primary"
                   key={post._id}
@@ -64,21 +84,20 @@ function Main() {
         })
       ) : (
         <div
-          className="text-center d-flex flex-column justify-content-center align-items-center"
-          style={{ height: "87vh" }}
+          className="alert alert-warning d-flex flex-column justify-content-center align-items-center align-content-center"
+          role="alert"
+          style={{ minHeight: "57vh" }}
         >
-          <div
-            className="spinner-border "
-            style={{ width: "3rem", height: "3rem" }}
-            role="status"
-          >
-            <span className="sr-only">Loading...</span>
+          <div className="text-center d-flex flex-column justify-content-center align-items-center">
+            There are no posts.
           </div>
+          <Link to="/create" type="button" class="btn btn-success">
+            Add post
+          </Link>
         </div>
       )}
-      {loading ? (
-        ""
-      ) : (
+
+      {showBtn && (
         <button
           className="btn btn-primary hidden"
           id="showMoreBtn"
