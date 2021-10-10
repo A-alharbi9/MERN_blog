@@ -1,25 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { userContext } from "../Contexts/UserContext";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
-  const [signedIn, setSignedIn] = useState(false);
-
-  // const toggleIt = document.querySelector(".navbar-toggler");
-  // const collapseIt = document.querySelector(".navbar-collapse");
-
-  // console.log(toggleIt);
-
-  // toggleIt.addEventListener("click", () => {
-  //   console.log("clicked");
-  //   collapseIt.classList.toggle(".show");
-  // });
-  document.addEventListener("click", (e) => {
-    if (e.target.closest(".navbar-nav")) {
-      e.target.classList.toggle("#active");
-    }
-  });
-
+  const { userData } = useContext(userContext);
 
   return (
     <nav className="navbar text-center navbar-expand-lg navbar-dark bg-dark ">
@@ -48,6 +33,15 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
               {itemFour}
             </a>
           </li>
+          <div className="mx-4">
+            {userData > 0 ? (
+              <h4> User</h4>
+            ) : (
+              <Link className="btn btn-success mx-4 mt-2" to="/User">
+                Sign Up/login
+              </Link>
+            )}
+          </div>
         </ul>
       </div>
       <button
@@ -61,16 +55,6 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
-      {/* {signedIn ? (
-        <Link className="btn btn-success" to="/User">
-          Sign Up
-        </Link>
-      ) : (
-        <Link className="btn btn-primary" to="/User">
-          Sign In
-        </Link>
-      )} */}
     </nav>
   );
 }

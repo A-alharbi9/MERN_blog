@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { userContext } from "../Contexts/UserContext";
 const axios = require("axios");
 
 function Main() {
+  const user = useContext(userContext);
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
@@ -27,6 +30,8 @@ function Main() {
 
     fetchData();
 
+    console.log(user.userData);
+
     return () => {
       isMounted = true;
     };
@@ -47,7 +52,7 @@ function Main() {
     return (
       <div
         className="text-center d-flex flex-column justify-content-center align-items-center"
-        style={{ height: "87vh" }}
+        style={{ minHeight: "87vh" }}
       >
         <div
           className="spinner-border "
