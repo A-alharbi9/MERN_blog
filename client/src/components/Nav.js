@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { userContext } from "../Contexts/UserContext";
+import { userContext } from "../contexts/UserContext";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
@@ -37,9 +37,14 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
             {userData > 0 ? (
               <h4> User</h4>
             ) : (
-              <Link className="btn btn-success mx-4 mt-2" to="/User">
-                Sign Up/login
-              </Link>
+              <>
+                <Link className="btn btn-success mx-2" to="/user/signup">
+                  Sign Up
+                </Link>
+                <Link className="btn btn-light mx-2" to="/user/login">
+                  Login
+                </Link>
+              </>
             )}
           </div>
         </ul>

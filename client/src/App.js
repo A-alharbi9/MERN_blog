@@ -7,12 +7,14 @@ import Create from "./components/Create";
 import Nav from "./components/Nav";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
-import UserForm from "./components/UserForm";
-import { userContext } from "./Contexts/UserContext";
+import UserSignup from "./components/user/UserSignup";
+import UserLogin from "./components/user/UserLogin";
+import { userContext } from "./contexts/UserContext";
 
 function App() {
   const [userData, setUserData] = useState({});
-  const [userSignUp, setuserSignUp] = useState(false);
+
+  console.log(userData);
 
   return (
     <userContext.Provider value={{ userData, setUserData }}>
@@ -29,7 +31,8 @@ function App() {
               <Route path="/" exact component={Main} />
               <Route path="/posts/:id" exact component={Post} />
               <Route path="/create" component={Create} />
-              <Route path="/user" component={UserForm} />
+              <Route path="/user/signup" component={UserSignup} />
+              <Route path="/user/login" component={UserLogin} />
             </Switch>
           </Online>
           <Offline>
