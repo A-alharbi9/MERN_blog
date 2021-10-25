@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import "../styles/Nav.css";
 
@@ -34,8 +34,19 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
             </a>
           </li>
           <div className="mx-4">
-            {userData > 0 ? (
-              <h4> User</h4>
+            {userData.username !== undefined ? (
+              <div className="d-flex justify-content-center ">
+                <h6
+                  style={{ color: "white" }}
+                >{`Welcome, ${userData.username}`}</h6>
+                <Link
+                  className="btn btn-light mx-2"
+                  id="logoutBtn"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Link>
+              </div>
             ) : (
               <>
                 <Link className="btn btn-success mx-2" to="/user/signup">

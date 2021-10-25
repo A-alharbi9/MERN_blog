@@ -2,16 +2,17 @@ import React, { useState, useContext } from "react";
 import swal from "@sweetalert/with-react";
 import { login } from "../../api/index";
 import { userContext } from "../../contexts/UserContext";
+import { useHistory } from "react-router";
 
 function UserLogin() {
   const { userData, setUserData } = useContext(userContext);
-
-  console.log(userData);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,13 +27,20 @@ function UserLogin() {
     login(newLogin)
       .then((res) => {
         console.log("res: ", res);
-        setUserData(res.data);
+
+        const user = JSON.stringify(res.data.user);
+
+        setUserData(res.data.user);
+
+        document.cookie = `user=${user}`;
       })
       .then(() => {
         swal({
           title: "logged in Successfully",
           icon: "success",
         });
+
+        history.push("/");
       })
       .catch((err) => {
         swal({
@@ -40,7 +48,7 @@ function UserLogin() {
           text: err.message,
           icon: "error",
         });
-        console.log("Error: ", err.response.data);
+
         console.log("Error: ", err.status);
       });
 
@@ -69,7 +77,7 @@ function UserLogin() {
             name="email"
             placeholder="Please enter your email"
             onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
+              setFormData({ ...formData, email: e.target.value.toLowerCase() })
             }
           />
         </div>

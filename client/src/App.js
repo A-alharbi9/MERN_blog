@@ -15,11 +15,12 @@ function App() {
   const [userData, setUserData] = useState({});
 
   console.log(userData);
+  console.log(userData.firstName);
 
   return (
-    <userContext.Provider value={{ userData, setUserData }}>
-      <Router>
-        <div className="App">
+    <Router>
+      <div className="App">
+        <userContext.Provider value={{ userData, setUserData }}>
           <Nav
             itemOne="Home"
             itemTwo="Posts"
@@ -44,9 +45,9 @@ function App() {
             </div>
           </Offline>
           <Footer />
-        </div>
-      </Router>
-    </userContext.Provider>
+        </userContext.Provider>
+      </div>
+    </Router>
   );
 }
 

@@ -7,6 +7,16 @@ module.exports = {
     secret: "secret",
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+    }),
+    cookie: {
+      //3 Hours
+      maxAge: 60000,
+      //in production it is true
+      httpOnly: false,
+      sameSite: false,
+      secure: false,
+    },
   }),
 };

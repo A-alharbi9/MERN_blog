@@ -12,30 +12,24 @@ function Main() {
   const [visible, setVisible] = useState(3);
 
   useEffect(() => {
-    let isMounted = false;
-
-    async function fetchData() {
-      await axios
-        .get("/posts")
-        .then((res) => {
-          setData(res.data);
-          if (res.data.length > 0) {
-            setShowBtn(true);
-          }
-          console.log(res.data.length);
-        })
-        .then(() => setLoading(false))
-        .catch((err) => console.log("Error: ", err.message));
-    }
-
     fetchData();
 
-    console.log(user.userData);
-
-    return () => {
-      isMounted = true;
-    };
+    console.log(user.userData.data);
   }, []);
+
+  async function fetchData() {
+    await axios
+      .get("/posts")
+      .then((res) => {
+        setData(res.data);
+        if (res.data.length > 0) {
+          setShowBtn(true);
+        }
+        console.log(res.data.length);
+      })
+      .then(() => setLoading(false))
+      .catch((err) => console.log("Error: ", err.message));
+  }
 
   const showMoreBtn = (e) => {
     e.preventDefault();
