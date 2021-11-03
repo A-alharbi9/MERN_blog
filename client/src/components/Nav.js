@@ -3,19 +3,17 @@ import { Link, useHistory } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import swal from "@sweetalert/with-react";
 import { logout } from "../api/index";
+import { removeCookie } from "../utils/userCookie";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
   const { userData } = useContext(userContext);
 
-  console.log(userData);
-  console.log(userData.length);
-  console.log(userData.username);
+  let user;
 
-  let user = "";
-
-  console.log(Object.keys(userData));
-  console.log(userData.length !== 0);
+  if (userData !== undefined) {
+    user = userData.username;
+  }
 
   let history = useHistory();
 
@@ -27,7 +25,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
           icon: "success",
         });
 
-        userData.length = 0;
+        removeCookie("user");
 
         history.push("/user/login");
       })
@@ -42,37 +40,35 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
 
   return (
     <nav className="navbar text-center navbar-expand-lg navbar-dark bg-dark ">
-      <a className="navbar-brand " href="#">
+      <a className="navbar-brand " href="/">
         Brand
       </a>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav mx-auto col-lg-8">
           <li className="nav-item  ">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/">
               {itemOne}
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href={`/${itemTwo}`}>
               {itemTwo}
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href={`/${itemThree}`}>
               {itemThree}
             </a>
           </li>
           <li className="nav-item ">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href={`/${itemFour}`}>
               {itemFour}
             </a>
           </li>
           <div className="mx-4">
-            {userData.username !== undefined ? (
+            {user !== undefined ? (
               <div className="d-flex justify-content-center ">
-                <h6
-                  style={{ color: "white" }}
-                >{`Welcome, ${userData.username}`}</h6>
+                <h6 style={{ color: "white" }}>{`Welcome, ${user}`}</h6>
                 <Link
                   className="btn btn-light mx-2"
                   id="logoutBtn"

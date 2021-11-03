@@ -5,7 +5,7 @@ import { userContext } from "../../contexts/UserContext";
 import { useHistory } from "react-router";
 
 function UserSignup() {
-  const { userData, setUserData } = useContext(userContext);
+  const { setUserData } = useContext(userContext);
 
   const [formData, setFormData] = useState({
     firstName: "",

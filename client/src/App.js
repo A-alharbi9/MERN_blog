@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/App.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
 import Main from "./components/Main";
 import Create from "./components/Create";
@@ -10,17 +10,21 @@ import Footer from "./components/Footer";
 import UserSignup from "./components/user/UserSignup";
 import UserLogin from "./components/user/UserLogin";
 import { userContext } from "./contexts/UserContext";
+import { getCookie } from "./utils/userCookie";
 
 function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(getCookie("user"));
 
   console.log(userData);
-  console.log(userData.firstName);
+
+  useEffect(() => {
+    setUserData(getCookie("user"));
+  }, []);
 
   return (
     <Router>
       <div className="App">
-        <userContext.Provider value={{ userData, setUserData }}>
+        <userContext.Provider value={{ userData }}>
           <Nav
             itemOne="Home"
             itemTwo="Posts"

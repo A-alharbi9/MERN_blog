@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { userContext } from "../contexts/UserContext";
 const axios = require("axios");
 
 function Main() {
-  const user = useContext(userContext);
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showBtn, setShowBtn] = useState(false);
@@ -13,8 +10,6 @@ function Main() {
 
   useEffect(() => {
     fetchData();
-
-    console.log(user.userData.data);
   }, []);
 
   async function fetchData() {
