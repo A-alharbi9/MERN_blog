@@ -3,6 +3,7 @@ import swal from "@sweetalert/with-react";
 import { login } from "../../api/index";
 import { userContext } from "../../contexts/UserContext";
 import { useHistory } from "react-router";
+import Cookies from "js-cookie";
 
 function UserLogin() {
   const { userData, setUserData } = useContext(userContext);
@@ -32,7 +33,7 @@ function UserLogin() {
 
         setUserData(res.data.user);
 
-        document.cookie = `user=${user}`;
+        Cookies.set("user", user);
       })
       .then(() => {
         swal({

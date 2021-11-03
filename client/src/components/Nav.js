@@ -1,10 +1,44 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
+import swal from "@sweetalert/with-react";
+import { logout } from "../api/index";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
   const { userData } = useContext(userContext);
+
+  console.log(userData);
+  console.log(userData.length);
+  console.log(userData.username);
+
+  let user = "";
+
+  console.log(Object.keys(userData));
+  console.log(userData.length !== 0);
+
+  let history = useHistory();
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        swal({
+          title: "logged out Successfully",
+          icon: "success",
+        });
+
+        userData.length = 0;
+
+        history.push("/user/login");
+      })
+      .catch((err) => {
+        swal({
+          title: "An error occurred",
+          text: err.message,
+          icon: "error",
+        });
+      });
+  };
 
   return (
     <nav className="navbar text-center navbar-expand-lg navbar-dark bg-dark ">
