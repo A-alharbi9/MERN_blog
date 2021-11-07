@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import swal from "@sweetalert/with-react";
 import { login } from "../../api/index";
 import { useHistory } from "react-router";
 import { setCookie } from "../../utils/userCookie";
+import { userContext } from "../../contexts/UserContext";
 
 function UserLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { loggedIn, setLoggedIn } = useContext(userContext);
+
+  console.log(loggedIn);
 
   let history = useHistory();
 
@@ -28,9 +33,9 @@ function UserLogin() {
 
         const user = JSON.stringify(res.data.user);
 
-        // setUserData(res.data.user);
-
         setCookie("user", user);
+
+        setLoggedIn(true);
       })
       .then(() => {
         swal({

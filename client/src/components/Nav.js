@@ -7,7 +7,7 @@ import { removeCookie } from "../utils/userCookie";
 import "../styles/Nav.css";
 
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
-  const { userData } = useContext(userContext);
+  const { userData, loggedIn, setLoggedIn } = useContext(userContext);
 
   let user;
 
@@ -26,6 +26,8 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
         });
 
         removeCookie("user");
+
+        setLoggedIn(false);
 
         history.push("/user/login");
       })
@@ -66,7 +68,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
             </a>
           </li>
           <div className="mx-4">
-            {user !== undefined ? (
+            {loggedIn ? (
               <div className="d-flex justify-content-center ">
                 <h6 style={{ color: "white" }}>{`Welcome, ${user}`}</h6>
                 <Link

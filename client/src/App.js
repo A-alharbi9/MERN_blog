@@ -15,6 +15,7 @@ import Protected from "./components/protectedRoutes/Protected";
 
 function App() {
   const [userData, setUserData] = useState(getCookie("user"));
+  const [loggedIn, setLoggedIn] = useState(false);
 
   console.log(userData);
 
@@ -25,7 +26,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <userContext.Provider value={{ userData }}>
+        <userContext.Provider value={{ userData, loggedIn, setLoggedIn }}>
           <Nav
             itemOne="Home"
             itemTwo="Posts"

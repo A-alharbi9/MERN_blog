@@ -13,17 +13,17 @@ function Main() {
   }, []);
 
   async function fetchData() {
-    await axios
-      .get("/posts")
-      .then((res) => {
-        setData(res.data);
-        if (res.data.length > 0) {
-          setShowBtn(true);
-        }
-        console.log(res.data.length);
-      })
-      .then(() => setLoading(false))
-      .catch((err) => console.log("Error: ", err.message));
+    const res = await axios.get("/posts");
+
+    const resData = await res.data;
+
+    setData(res.data);
+    if (res.data.length > 0) {
+      setShowBtn(true);
+    }
+    console.log(resData);
+
+    setLoading(false);
   }
 
   const showMoreBtn = (e) => {
