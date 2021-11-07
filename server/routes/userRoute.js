@@ -3,7 +3,7 @@ const session = require("express-session");
 const passport = require("passport");
 const router = express.Router();
 const createError = require("http-errors");
-const { signUp } = require("../controllers/userController");
+const { signUp, logout } = require("../controllers/userController");
 const { getUsers } = require("../controllers/userController");
 
 router.get("/users", getUsers);
@@ -47,8 +47,6 @@ router.post("/login", (req, res, next) => {
 
 router.post("/signUp", signUp);
 
-router.post("/logout", (req, res, next) => {
-  req.logOut();
-});
+router.get("/logout", logout);
 
 module.exports = router;

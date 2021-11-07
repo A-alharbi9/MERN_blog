@@ -11,6 +11,7 @@ import UserSignup from "./components/user/UserSignup";
 import UserLogin from "./components/user/UserLogin";
 import { userContext } from "./contexts/UserContext";
 import { getCookie } from "./utils/userCookie";
+import Protected from "./components/protectedRoutes/Protected";
 
 function App() {
   const [userData, setUserData] = useState(getCookie("user"));
@@ -38,6 +39,7 @@ function App() {
               <Route path="/create" component={Create} />
               <Route path="/user/signup" component={UserSignup} />
               <Route path="/user/login" component={UserLogin} />
+              <Route path="/protected" component={Protected} />
             </Switch>
           </Online>
           <Offline>
