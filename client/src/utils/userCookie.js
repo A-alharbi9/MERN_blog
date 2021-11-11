@@ -9,9 +9,9 @@ export const getCookie = (name) => {
     return JSON.parse(cookieVal);
   }
   console.log(Cookies.get(name) !== undefined);
-
-  return (cookieVal = undefined);
 };
 export const removeCookie = (name) => {
-  return Cookies.remove(name);
+  if (Cookies.get(name) !== undefined) {
+    return Cookies.remove(name);
+  }
 };

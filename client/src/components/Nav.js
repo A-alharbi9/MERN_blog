@@ -9,12 +9,6 @@ import "../styles/Nav.css";
 function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
   const { userData, loggedIn, setLoggedIn } = useContext(userContext);
 
-  let user;
-
-  if (userData !== undefined) {
-    user = userData.username;
-  }
-
   let history = useHistory();
 
   const handleLogout = () => {
@@ -70,7 +64,9 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
           <div className="mx-4">
             {loggedIn ? (
               <div className="d-flex justify-content-center ">
-                <h6 style={{ color: "white" }}>{`Welcome, ${user}`}</h6>
+                <h6
+                  style={{ color: "white" }}
+                >{`Welcome, ${userData.username}`}</h6>
                 <Link
                   className="btn btn-light mx-2"
                   id="logoutBtn"

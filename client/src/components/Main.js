@@ -21,7 +21,6 @@ function Main() {
     if (res.data.length > 0) {
       setShowBtn(true);
     }
-    console.log(resData);
 
     setLoading(false);
   }
