@@ -4,6 +4,7 @@ const cors = require("cors");
 const port = process.env.PORT || 5000;
 const blogRouter = require("./routes/blogRouter");
 const userRouter = require("./routes/userRoute");
+const sessionRouter = require("./routes/sessionRoute");
 const { sessionInit } = require("./helpers/session.helper");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -24,6 +25,7 @@ app.use(passport.session());
 
 app.use("/posts", blogRouter);
 app.use("/user", userRouter);
+app.use("/session", sessionRouter);
 
 // app.get("/protected", (req, res) => {
 //   console.log(req.session);

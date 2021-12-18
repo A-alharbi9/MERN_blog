@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 import swal from "@sweetalert/with-react";
@@ -47,7 +47,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href={`/${itemTwo}`}>
+            <a className="nav-link" href={`/posts`}>
               {itemTwo}
             </a>
           </li>
@@ -66,7 +66,7 @@ function Nav({ itemOne, itemTwo, itemThree, itemFour }) {
               <div className="d-flex justify-content-center ">
                 <h6
                   style={{ color: "white" }}
-                >{`Welcome, ${userData.username}`}</h6>
+                >{`Welcome, ${userData?.username}`}</h6>
                 <Link
                   className="btn btn-light mx-2"
                   id="logoutBtn"

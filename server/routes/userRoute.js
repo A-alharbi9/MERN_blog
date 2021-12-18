@@ -24,16 +24,17 @@ router.post("/login", (req, res, next) => {
         if (err) {
           throw createError.InternalServerError();
         }
-        console.log("IN: ", user);
       });
 
+      req.session.save((error) => {
+        if (error) {
+          console.log("error in saving: ", error);
+        }
+      });
       const userInfo = { username: req.user.username, email: req.user.email };
 
-      console.log("Su: ", req.user);
-      console.log(user);
-      console.log("Sess: ", req.session);
-
       req.session.user = userInfo;
+      req.session.authenticated = true;
 
       return res.status(200).json({
         msg: "Succes",
