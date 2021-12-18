@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
 import { userContext } from "../../contexts/UserContext";
+import { getCookie } from "../../utils/userCookie";
 
 function Protected() {
-  const { userData } = useContext(userContext);
+  const { userData, loggedIn } = useContext(userContext);
+
+  let user = userData;
+
+  console.log(user);
+
   return (
     <div
       style={{
@@ -12,12 +18,12 @@ function Protected() {
         justifyContent: "center",
       }}
     >
-      {userData ? (
+      {loggedIn ? (
         <div>
           <h1>
             Welcome
             <h2 style={{ color: "green", fontWeight: "bold" }}>
-              {userData.username}
+              {user.username}
             </h2>
           </h1>
         </div>

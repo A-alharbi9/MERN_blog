@@ -11,12 +11,12 @@ module.exports = {
       mongoUrl: process.env.MONGO_URL,
     }),
     cookie: {
-      //3 Hours
-      maxAge: 60000,
+      //20 Hours
+      maxAge: 72000000,
       //in production it is true
-      httpOnly: false,
-      sameSite: false,
-      secure: false,
+      // httpOnly: true,
+      // sameSite: false,
+      // secure: false,
     },
   }),
 };
